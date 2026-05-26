@@ -1,0 +1,280 @@
+plugins {
+	id 'com.diffplug.spotless' version '8.5.1'
+	id 'com.gladed.androidgitversion' version '0.4.14'
+	id 'com.vanniktech.maven.publish' version '0.36.0' apply false
+	id 'net.raphimc.class-token-replacer' version '1.1.7' apply false
+}
+
+repositories {
+	mavenCentral()
+}
+
+androidGitVersion {
+	prefix = 'v'
+}
+
+var DEVELOPER_LOWERCASE = 'qwertycxz'
+var DEVELOPER_NAME = 'qwerty吃小庄'
+var DEVELOPER_SCM = "github.com/${DEVELOPER_LOWERCASE}"
+var DEVELOPER_GITHUB = "https://${DEVELOPER_SCM}"
+var MOD_LOWERCASE = 'metadatawildcard4fabric-permissions-api'
+var MOD_CAPITAL = 'MetadataWildcard4fabric-permissions-api'
+var MOD_NAME = 'Metadata Wildcard for fabric-permissions-api'
+var MOD_SCM = "${DEVELOPER_SCM}/${MOD_CAPITAL}"
+var MOD_GITHUB = "${DEVELOPER_GITHUB}/${MOD_CAPITAL}"
+var DESCRIPTION = 'An addon for fabric-permissions-api that enables wildcard support in metadata.'
+var GROUP = 'top.qwertycxz'
+var HOMEPAGE = 'https://qwertycxz.top'
+var ISSUE = "${MOD_GITHUB}/issues"
+var KO_FI = "https://ko-fi.com/${DEVELOPER_LOWERCASE}"
+var LICENSE = 'The Apache License, Version 2.0'
+var MODRINTH = "https://modrinth.com/mod/${MOD_LOWERCASE}"
+var VERSION = androidGitVersion.name()
+
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'com.vanniktech.maven.publish'
+	apply plugin: 'net.raphimc.class-token-replacer'
+	mavenPublishing {
+		coordinates GROUP, MOD_LOWERCASE, "${VERSION}-${project.name}"
+		pom {
+			ciManagement {
+				url = "${MOD_GITHUB}/actions"
+				system = 'GitHub Actions'
+			}
+			description = DESCRIPTION
+			developers {
+				developer {
+					id = DEVELOPER_LOWERCASE
+					name = DEVELOPER_NAME
+					properties = [
+						'GitHub': DEVELOPER_GITHUB,
+						'Ko-fi': KO_FI,
+					]
+					timezone = 'Asia/Shanghai'
+					url = HOMEPAGE
+				}
+			}
+			inceptionYear = '2025'
+			issueManagement {
+				system = 'GitHub'
+				url = ISSUE
+			}
+			licenses {
+				license {
+					distribution = 'repo'
+					name = LICENSE
+					url = 'https://www.apache.org/licenses/LICENSE-2.0'
+				}
+			}
+			name = MOD_NAME
+			scm {
+				connection = "scm:git:git://${MOD_SCM}"
+				developerConnection = "scm:git:ssh://${MOD_SCM}"
+				url = MOD_GITHUB
+			}
+			url = MODRINTH
+		}
+		publishToMavenCentral()
+		signAllPublications()
+	}
+	publishing {
+		repositories {
+			maven {
+				name = 'GitHub'
+				url = "https://maven.pkg.github.com/${DEVELOPER_LOWERCASE}/${MOD_CAPITAL}"
+				credentials PasswordCredentials
+			}
+		}
+	}
+	sourceSets {
+		main {
+			classTokenReplacer {
+				property '$lowercase', MOD_LOWERCASE
+				property '$capital', MOD_CAPITAL
+				property '$name', MOD_NAME
+				replaceInPlace = true
+			}
+		}
+	}
+	var MINECRAFT = project.properties['minecraft']
+	processResources {
+		filesMatching('fabric.mod.json') {
+			expand(
+				central: "https://central.sonatype.com/artifact/${GROUP}/${MOD_LOWERCASE}",
+				description: DESCRIPTION,
+				developer: DEVELOPER_NAME,
+				github: DEVELOPER_GITHUB,
+				homepage: HOMEPAGE,
+				id: MOD_LOWERCASE,
+				issue: ISSUE,
+				kofi: KO_FI,
+				license: LICENSE,
+				minecraft: MINECRAFT,
+				modrinth: MODRINTH,
+				name: MOD_NAME,
+				schema: '''schemaVersion": 1,
+	"$schema''',
+				scm: MOD_GITHUB,
+				version: VERSION,
+				)
+		}
+	}
+}
+
+var ECLIPSE = '''
+	groovy.formatter.longListLength = 1
+	groovy.formatter.multiline.indentation = 1
+	groovy.formatter.remove.unnecessary.semicolons = true
+	org.eclipse.jdt.core.formatter.alignment_for_switch_case_with_arrow = 16
+	org.eclipse.jdt.core.formatter.blank_lines_after_last_class_body_declaration = -1
+	org.eclipse.jdt.core.formatter.blank_lines_before_field = -1
+	org.eclipse.jdt.core.formatter.blank_lines_before_first_class_body_declaration = -1
+	org.eclipse.jdt.core.formatter.blank_lines_before_package = -1
+	org.eclipse.jdt.core.formatter.blank_lines_between_import_groups = 0
+	org.eclipse.jdt.core.formatter.blank_lines_between_statement_group_in_switch = -1
+	org.eclipse.jdt.core.formatter.comment.align_tags_descriptions_grouped = false
+	org.eclipse.jdt.core.formatter.comment.clear_blank_lines_in_block_comment = true
+	org.eclipse.jdt.core.formatter.comment.clear_blank_lines_in_javadoc_comment = true
+	org.eclipse.jdt.core.formatter.comment.format_header = true
+	org.eclipse.jdt.core.formatter.comment.format_line_comments = false
+	org.eclipse.jdt.core.formatter.comment.indent_parameter_description = true
+	org.eclipse.jdt.core.formatter.comment.indent_tag_description = true
+	org.eclipse.jdt.core.formatter.comment.insert_new_line_for_parameter = do not insert
+	org.eclipse.jdt.core.formatter.comment.line_length = 255
+	org.eclipse.jdt.core.formatter.comment.new_lines_at_block_boundaries = false
+	org.eclipse.jdt.core.formatter.continuation_indentation = 1
+	org.eclipse.jdt.core.formatter.continuation_indentation_for_array_initializer = 1
+	org.eclipse.jdt.core.formatter.indent_switchstatements_compare_to_switch = true
+	org.eclipse.jdt.core.formatter.insert_new_line_at_end_of_file_if_missing = insert
+	org.eclipse.jdt.core.formatter.insert_new_line_before_catch_in_try_statement = insert
+	org.eclipse.jdt.core.formatter.insert_new_line_before_else_in_if_statement = insert
+	org.eclipse.jdt.core.formatter.insert_new_line_before_finally_in_try_statement = insert
+	org.eclipse.jdt.core.formatter.insert_new_line_before_while_in_do_statement = insert
+	org.eclipse.jdt.core.formatter.insert_space_after_closing_paren_in_cast = do not insert
+	org.eclipse.jdt.core.formatter.keep_annotation_declaration_on_one_line = one_line_if_empty
+	org.eclipse.jdt.core.formatter.keep_anonymous_type_declaration_on_one_line = one_line_if_empty
+	org.eclipse.jdt.core.formatter.keep_code_block_on_one_line = one_line_if_empty
+	org.eclipse.jdt.core.formatter.keep_else_statement_on_same_line = true
+	org.eclipse.jdt.core.formatter.keep_enum_constant_declaration_on_one_line = one_line_if_empty
+	org.eclipse.jdt.core.formatter.keep_enum_declaration_on_one_line = one_line_if_empty
+	org.eclipse.jdt.core.formatter.keep_if_then_body_block_on_one_line = one_line_if_empty
+	org.eclipse.jdt.core.formatter.keep_lambda_body_block_on_one_line = one_line_if_empty
+	org.eclipse.jdt.core.formatter.keep_loop_body_block_on_one_line = one_line_if_empty
+	org.eclipse.jdt.core.formatter.keep_method_body_on_one_line = one_line_if_empty
+	org.eclipse.jdt.core.formatter.keep_record_constructor_on_one_line = one_line_if_empty
+	org.eclipse.jdt.core.formatter.keep_record_declaration_on_one_line = one_line_if_empty
+	org.eclipse.jdt.core.formatter.keep_simple_do_while_body_on_same_line = true
+	org.eclipse.jdt.core.formatter.keep_simple_for_body_on_same_line = true
+	org.eclipse.jdt.core.formatter.keep_simple_while_body_on_same_line = true
+	org.eclipse.jdt.core.formatter.keep_switch_body_block_on_one_line = one_line_if_empty
+	org.eclipse.jdt.core.formatter.keep_switch_case_with_arrow_on_one_line = one_line_if_empty
+	org.eclipse.jdt.core.formatter.keep_then_statement_on_same_line = true
+	org.eclipse.jdt.core.formatter.keep_type_declaration_on_one_line = one_line_if_empty
+	org.eclipse.jdt.core.formatter.lineSplit = 255
+	org.eclipse.jdt.core.formatter.number_of_blank_lines_after_code_block = -1
+	org.eclipse.jdt.core.formatter.number_of_blank_lines_at_beginning_of_code_block = -1
+	org.eclipse.jdt.core.formatter.number_of_blank_lines_at_beginning_of_method_body = -1
+	org.eclipse.jdt.core.formatter.number_of_blank_lines_at_end_of_code_block = -1
+	org.eclipse.jdt.core.formatter.number_of_blank_lines_at_end_of_method_body = -1
+	org.eclipse.jdt.core.formatter.number_of_blank_lines_before_code_block = -1
+	org.eclipse.jdt.core.formatter.parentheses_positions_in_annotation = separate_lines_if_wrapped
+	org.eclipse.jdt.core.formatter.parentheses_positions_in_catch_clause = separate_lines_if_wrapped
+	org.eclipse.jdt.core.formatter.parentheses_positions_in_enum_constant_declaration = separate_lines_if_wrapped
+	org.eclipse.jdt.core.formatter.parentheses_positions_in_lambda_declaration = separate_lines_if_wrapped
+	org.eclipse.jdt.core.formatter.parentheses_positions_in_method_delcaration = separate_lines_if_wrapped
+	org.eclipse.jdt.core.formatter.parentheses_positions_in_method_invocation = separate_lines_if_wrapped
+	org.eclipse.jdt.core.formatter.parentheses_positions_in_record_declaration = separate_lines_if_wrapped
+	org.eclipse.jdt.core.formatter.parentheses_positions_in_try_clause = separate_lines_if_wrapped
+	org.eclipse.jdt.core.formatter.put_empty_statement_on_new_line = false
+	org.eclipse.jdt.core.formatter.text_block_indentation = 3
+'''
+
+spotless {
+	// flexmark {
+	// 	flexmark()
+	// 	setLineEndings 'UNIX'
+	// 	target '*.md'
+	// }
+	groovyGradle {
+		greclipse() configProperties ECLIPSE
+		importOrder()
+		setLineEndings 'UNIX'
+		target 'build.gradle', 'settings.gradle', '*/build.gradle', '*/settings.gradle'
+	}
+	java {
+		cleanthat() addMutators([
+			'ArithmethicAssignment',
+			'ArraysDotStream',
+			'AvoidInlineConditionals',
+			'AvoidMultipleUnaryOperators',
+			'AvoidUncheckedExceptionsInSignatures',
+			'CollectionIndexOfToContains',
+			'CollectionToOptional',
+			'ComparisonWithNaN',
+			'EnumsWithoutEquals',
+			'ForEachAddToStreamCollectToCollection',
+			'ForEachIfBreakToStreamFindFirst',
+			'ForEachIfToIfStreamAnyMatch',
+			'GuavaInlineStringsRepeat',
+			'GuavaStringsIsNullOrEmpty',
+			'ImportQualifiedTokens',
+			'JUnit4ToJUnit5',
+			'LambdaIsMethodReference',
+			'LambdaReturnsSingleStatement',
+			'LiteralsFirstInComparisons',
+			'ModifierOrder',
+			'ObjectEqualsForPrimitives',
+			'ObjectsHashCodePrimitive',
+			'OptionalMapIdentity',
+			'OptionalNotEmpty',
+			'PrimitiveWrapperInstantiation',
+			'RedundantLogicalComplementsInStream',
+			'RemoveAllToClearCollection',
+			'RemoveExplicitCallToSuper',
+			'SimplifyBooleanExpression',
+			'SimplifyBooleanInitialization',
+			'SimplifyStartsWith',
+			'StreamAnyMatch',
+			'StreamFlatMapStreamToFlatMap',
+			'StreamMapIdentity',
+			'StringFromString',
+			'StringIndexOfToContains',
+			'StringReplaceAllWithQuotableInput',
+			'StringToString',
+			'UnnecessaryBoxing',
+			'UnnecessaryFullyQualifiedName',
+			'UnnecessaryImport',
+			'UnnecessaryLambdaEnclosingParameters',
+			'UnnecessaryModifier',
+			'UnnecessarySemicolon',
+			'UseCollectionIsEmpty',
+			'UseDiamondOperatorJdk8',
+			'UsePredefinedStandardCharset',
+			'UseStringIsEmpty',
+			'UseTextBlocks',
+		]) includeDraft true sourceCompatibility '26'
+		eclipse() configProperties ECLIPSE sortMembersDoNotSortFields false sortMembersEnabled true sortMembersVisibilityOrderEnabled true
+		forbidModuleImports()
+		forbidWildcardImports()
+		importOrder()
+		removeUnusedImports()
+		setLineEndings 'UNIX'
+		tableTestFormatter() // withIndentStyle 'tab'
+		target 'src/**/*.java'
+	}
+	json {
+		jackson() feature('ORDER_MAP_ENTRIES_BY_KEYS', true) jsonFeature('ESCAPE_FORWARD_SLASHES', false) jsonFeature('STRICT_DUPLICATE_DETECTION', true)
+		eclipseWtp 'json'
+		endWithNewline()
+		setLineEndings 'UNIX'
+		target 'src/**/*.json'
+	}
+	yaml {
+		endWithNewline()
+		leadingTabsToSpaces 2
+		setLineEndings 'UNIX'
+		target '.github/**/*.yml'
+		trimTrailingWhitespace()
+	}
+}

@@ -1,0 +1,44 @@
+{
+	"$schema": "https://www.schemastore.org/fabric.mod",
+	"authors": [
+		{
+			"contact": {
+				"GitHub": "$github",
+				"Ko-fi": "$kofi",
+				"homepage": "$homepage"
+			},
+			"name": "$developer"
+		}
+	],
+	"contact": {
+		"Central": "$central",
+		"Modrinth": "$modrinth",
+		"issues": "$issue",
+		"sources": "$scm"
+	},
+	"custom": {
+		"mc-publish": {
+			"curseforge": 1307729,
+			"modrinth": "eCT6lHG4"
+		}
+	},
+	"depends": {
+		"fabric-permissions-api-v0": "*",
+		"minecraft": "$minecraft"
+	},
+	"description": "$description",
+	"entrypoints": {
+		"server": [
+			"top.qwertycxz.metadatawildcard.MetadataWildcard"
+		]
+	},
+	"environment": "server",
+	"icon": "icon.png",
+	"id": "$id",
+	"license": "$license",
+	"name": "$name",
+	"suggests": {
+		"luckperms": "*"
+	},
+	"version": "$version"
+}

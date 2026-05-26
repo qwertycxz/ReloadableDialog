@@ -1,0 +1,30 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version '1.16-SNAPSHOT'
+}
+
+dependencies {
+	minecraft 'com.mojang:minecraft:26.1.2'
+	implementation 'net.fabricmc:fabric-loader:0.19.2'
+	implementation fabricApi.module('fabric-api-base', '0.145.4+26.1.2')
+}
+
+loom {
+	decompilers {
+		cfr {
+			memory = 1024
+		}
+	}
+	runs {
+		server {
+			vmArgs '-Xmx1G'
+		}
+	}
+	serverOnlyMinecraftJar()
+}
+
+tasks.withType JavaCompile configureEach {
+	options.deprecation = true
+	options.encoding = 'UTF-8'
+	options.listFiles = true
+	options.release = 25
+}

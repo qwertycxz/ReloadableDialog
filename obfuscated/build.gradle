@@ -1,0 +1,31 @@
+plugins {
+	id 'net.fabricmc.fabric-loom-remap' version '1.16-SNAPSHOT'
+}
+
+dependencies {
+	mappings loom.officialMojangMappings()
+	minecraft 'com.mojang:minecraft:1.21.11'
+	modImplementation 'net.fabricmc:fabric-loader:0.19.2'
+	modImplementation fabricApi.module('fabric-api-base', '0.141.3+1.21.11')
+}
+
+loom {
+	decompilers {
+		cfr {
+			memory = 1024
+		}
+	}
+	runs {
+		server {
+			vmArgs '-Xmx1G'
+		}
+	}
+	serverOnlyMinecraftJar()
+}
+
+tasks.withType JavaCompile configureEach {
+	options.deprecation = true
+	options.encoding = 'UTF-8'
+	options.listFiles = true
+	options.release = 21
+}
