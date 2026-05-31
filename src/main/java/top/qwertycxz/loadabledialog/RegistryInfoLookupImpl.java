@@ -2,6 +2,7 @@ package top.qwertycxz.loadabledialog;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;
+
 import java.util.Map;
 import java.util.Optional;
 import net.minecraft.core.Registry;
