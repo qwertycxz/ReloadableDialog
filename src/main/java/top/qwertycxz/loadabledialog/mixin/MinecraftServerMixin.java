@@ -24,18 +24,27 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+/// Mixin for dialog reloading
 @Mixin(MinecraftServer.class)
 @NullMarked
 public abstract class MinecraftServerMixin {
+	/// The player list, used for marking players as stale when reloading dialogs.
 	@Shadow
 	@SuppressWarnings("null")
 	private PlayerList playerList;
+	/// The layered registry access, used for replacing the dialog registry when reloading dialogs.
 	@Final
 	@Mutable
 	@Shadow
 	@SuppressWarnings("null")
 	private LayeredRegistryAccess<RegistryLayer> registries;
 
+	/// Wraps the callback of `reloadResources` to load dialogs from the resource manager and replace the dialog registry in the layered registry access.
+	///
+	/// Once failed, the registries will be reverted to the old one.
+	///
+	/// @param function the original callback that reloads resources
+	/// @return the wrapped callback that loads dialogs and then calls the original callback
 	@ModifyArg(at = @At(target = "thenCompose", value = "INVOKE"), method = "reloadResources")
 	private <T extends @NonNull List<PackResources>, U extends AutoCloseable> Function<T, CompletableFuture<U>> reloadDialog(Function<T, CompletableFuture<U>> function) {
 		return resources -> {

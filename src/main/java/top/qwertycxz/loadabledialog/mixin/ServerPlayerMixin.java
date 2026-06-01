@@ -25,9 +25,11 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+/// Mixin to replace the dialog sent to players whose client is not up-to-date with the server, so they can see a notice dialog instead of a missing dialog error when loading dialogs.
 @Mixin(ServerPlayer.class)
 @NullMarked
 public abstract class ServerPlayerMixin {
+	/// A holder of a notice dialog that is shown to players whose client is not up-to-date with the server..
 	@Unique
 	private static final Holder<@NonNull Dialog> STALE_DIALOG = direct(
 		new NoticeDialog(
@@ -38,7 +40,11 @@ public abstract class ServerPlayerMixin {
 		)
 	);
 
-	@ModifyArg(method = "openDialog", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/common/ClientboundShowDialogPacket;<init>(Lnet/minecraft/core/Holder;)V"))
+	/// Replaces the dialog sent to players.
+	///
+	/// @param dialog the original dialog to be sent to the player
+	/// @return the dialog to be sent to the player, which is the original dialog if the player is up-to-date, or a notice dialog if the player is not up-to-date
+	@ModifyArg(method = "openDialog", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/common/ClientboundShowDialogPacket;<init>"))
 	private Holder<@NonNull Dialog> staleDialog(Holder<@NonNull Dialog> dialog) {
 		if (dialog.kind() == REFERENCE && STALE_PLAYERS.contains((Object)this)) return STALE_DIALOG;
 		return dialog;

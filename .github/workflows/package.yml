@@ -25,6 +25,9 @@ jobs:
           files: |
             obfuscated/build/libs/!(*-@(dev|sources|javadoc)).jar
             obfuscated/build/libs/*-@(dev|sources|javadoc).jar
+          loaders: |
+            fabric
+            neoforge
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
       - uses: Kir-Antipov/mc-publish@995edadc13559a8b28d0b7e6571229f067ec7659
         with:
@@ -32,6 +35,9 @@ jobs:
           files: |
             unobfuscated/build/libs/!(*-@(dev|sources|javadoc)).jar
             unobfuscated/build/libs/*-@(dev|sources|javadoc).jar
+          loaders: |
+            fabric
+            neoforge
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 on:
   release:

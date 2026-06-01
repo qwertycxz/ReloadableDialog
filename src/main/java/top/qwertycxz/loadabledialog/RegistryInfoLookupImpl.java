@@ -45,18 +45,36 @@ import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import top.qwertycxz.loadabledialog.mixin.NamedInvoker;
 
+/// Main class of the mod
+///
+/// For the instance of this class, it is just a thin wrapper around a map of registry keys to registry info, which is used for looking up registries when loading dialogs.
+///
+/// @param info the map of registry keys to registry info, which is used for looking up registries when loading dialogs
 @NullMarked
 public record RegistryInfoLookupImpl(Map<? extends ResourceKey<? extends Registry<?>>, ? extends RegistryInfo<?>> info) implements RegistryInfoLookup {
+	/// The lifecycle of the dialog registry, which is always stable since it only contains built-in entries.
 	private static final Lifecycle LIFECYCLE = BUILT_IN.lifecycle();
+	/// The operations used for loading dialog JSONs, which is the same as the one used for loading built-in registries.
 	private static final JsonOps OPERATIONS = requireNonNull(INSTANCE);
+	/// A set of players whose client is not up-to-date with the server, so we should not send them dialogs.
 	public static final Set<ServerPlayer> STALE_PLAYERS = requireNonNull(newSetFromMap(new WeakHashMap<>()));
 
+	/// Creates a new registry info lookup with the given map
+	///
+	/// @param key the map of registry keys to registry info
+	/// @return the registry info lookup
 	@Override
 	@SuppressWarnings("unchecked")
 	public <U> Optional<RegistryInfo<U>> lookup(ResourceKey<? extends Registry<? extends U>> key) {
 		return requireNonNull(ofNullable((RegistryInfo<U>)info.get(key)));
 	}
 
+	/// Loads dialogs from the resource manager and returns a frozen registry access containing the dialog registry.
+	///
+	/// @param layer layer `n`, the frozen registry access layer where the dialog registry will be added
+	/// @param access layers `0 ~ n-1`, the provider of registry lookups as the base for dialog loading
+	/// @param manager the resource manager to load dialog JSONs from
+	/// @return modified layer `n`, a frozen registry access containing the dialog registry
 	@SuppressWarnings("unchecked")
 	public static Frozen loadDialog(Frozen layer, Provider access, ResourceManager manager) {
 		ConcurrentMap<@NonNull ResourceKey<? extends Registry<?>>, @NonNull RegistryInfo<?>> info = concat(layer.listRegistries(), access.listRegistries())
