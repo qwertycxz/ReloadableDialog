@@ -36,7 +36,6 @@ public abstract class MinecraftServerMixin {
 		return resources -> {
 			var old = registries;
 			var manager = new MultiPackResourceManager(SERVER_DATA, resources);
-
 			try {
 				registries = old.replaceFrom(DIMENSIONS, loadDialog(old.getLayer(DIMENSIONS), old.getAccessForLoading(DIMENSIONS), manager));
 				return function.apply(resources).whenComplete((ok, e) -> {
@@ -44,7 +43,8 @@ public abstract class MinecraftServerMixin {
 						registries = old;
 					}
 				});
-			} catch (Throwable e) {
+			}
+			catch (Throwable e) {
 				registries = old;
 				manager.close();
 				return failedFuture(e);

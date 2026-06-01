@@ -204,6 +204,7 @@ spotless {
 	}
 	java {
 		cleanthat() addMutators([
+			'AppendCharacterWithChar',
 			'ArithmethicAssignment',
 			'ArraysDotStream',
 			'AvoidInlineConditionals',
@@ -243,6 +244,7 @@ spotless {
 			'StringReplaceAllWithQuotableInput',
 			'StringToString',
 			'UnnecessaryBoxing',
+			'UnnecessaryCaseChange',
 			'UnnecessaryFullyQualifiedName',
 			'UnnecessaryImport',
 			'UnnecessaryLambdaEnclosingParameters',
