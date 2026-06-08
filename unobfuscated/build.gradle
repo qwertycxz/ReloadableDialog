@@ -20,10 +20,3 @@ loom {
 	}
 	serverOnlyMinecraftJar()
 }
-
-tasks.withType JavaCompile configureEach {
-	options.deprecation = true
-	options.encoding = 'UTF-8'
-	options.listFiles = true
-	options.release = 25
-}

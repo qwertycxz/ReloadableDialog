@@ -98,6 +98,13 @@ subprojects {
 			}
 		}
 	}
+	var JAVA = project.properties['java'] as int
+	tasks.withType JavaCompile configureEach {
+		options.deprecation = true
+		options.encoding = 'UTF-8'
+		options.listFiles = true
+		options.release = JAVA
+	}
 	var FABRIC = project.properties['fabric']
 	var FORGE = project.properties['forge']
 	processResources {
