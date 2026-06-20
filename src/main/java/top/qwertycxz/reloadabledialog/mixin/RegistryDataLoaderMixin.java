@@ -1,4 +1,4 @@
-package top.qwertycxz.loadabledialog.mixin;
+package top.qwertycxz.reloadabledialog.mixin;
 
 import static java.util.Objects.requireNonNull;
 import static net.minecraft.core.registries.Registries.DIALOG;

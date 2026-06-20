@@ -7,6 +7,6 @@
 		"ServerPlayerMixin",
 		"WorldLoaderMixin"
 	],
-	"package": "top.qwertycxz.loadabledialog.mixin",
+	"package": "top.qwertycxz.reloadabledialog.mixin",
 	"required": true
 }

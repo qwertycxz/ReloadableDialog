@@ -1,4 +1,4 @@
-package top.qwertycxz.loadabledialog.mixin;
+package top.qwertycxz.reloadabledialog.mixin;
 
 import java.util.List;
 import net.minecraft.core.Holder;

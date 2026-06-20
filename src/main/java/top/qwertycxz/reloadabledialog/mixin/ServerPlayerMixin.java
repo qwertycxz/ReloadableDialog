@@ -1,4 +1,4 @@
-package top.qwertycxz.loadabledialog.mixin;
+package top.qwertycxz.reloadabledialog.mixin;
 
 import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
@@ -9,8 +9,7 @@ import static net.minecraft.network.chat.Component.literal;
 import static net.minecraft.server.dialog.DialogAction.CLOSE;
 import static net.minecraft.server.dialog.NoticeDialog.DEFAULT_ACTION;
 import static net.minecraft.server.dialog.body.PlainMessage.DEFAULT_WIDTH;
-import static top.qwertycxz.loadabledialog.RegistryInfoLookupImpl.STALE_PLAYERS;
-
+import static top.qwertycxz.reloadabledialog.RegistryInfoLookupImpl.STALE_PLAYERS;
 import net.minecraft.core.Holder;
 import net.minecraft.server.dialog.CommonDialogData;
 import net.minecraft.server.dialog.Dialog;

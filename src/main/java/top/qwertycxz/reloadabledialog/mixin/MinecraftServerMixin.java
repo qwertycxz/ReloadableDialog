@@ -1,11 +1,10 @@
-package top.qwertycxz.loadabledialog.mixin;
+package top.qwertycxz.reloadabledialog.mixin;
 
 import static java.util.concurrent.CompletableFuture.failedFuture;
 import static net.minecraft.server.RegistryLayer.DIMENSIONS;
 import static net.minecraft.server.packs.PackType.SERVER_DATA;
-import static top.qwertycxz.loadabledialog.RegistryInfoLookupImpl.STALE_PLAYERS;
-import static top.qwertycxz.loadabledialog.RegistryInfoLookupImpl.loadDialog;
-
+import static top.qwertycxz.reloadabledialog.RegistryInfoLookupImpl.STALE_PLAYERS;
+import static top.qwertycxz.reloadabledialog.RegistryInfoLookupImpl.loadDialog;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
