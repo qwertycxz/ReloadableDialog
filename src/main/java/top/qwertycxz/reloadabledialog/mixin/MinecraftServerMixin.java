@@ -5,6 +5,7 @@ import static net.minecraft.server.RegistryLayer.DIMENSIONS;
 import static net.minecraft.server.packs.PackType.SERVER_DATA;
 import static top.qwertycxz.reloadabledialog.RegistryInfoLookupImpl.STALE_PLAYERS;
 import static top.qwertycxz.reloadabledialog.RegistryInfoLookupImpl.loadDialog;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;

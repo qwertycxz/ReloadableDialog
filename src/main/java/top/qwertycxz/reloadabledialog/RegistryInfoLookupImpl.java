@@ -40,10 +40,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.tags.TagKey;
 import net.minecraft.tags.TagLoader;
-import top.qwertycxz.reloadabledialog.mixin.NamedInvoker;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
+import top.qwertycxz.reloadabledialog.mixin.NamedInvoker;
 
 /// Main class of the mod
 ///

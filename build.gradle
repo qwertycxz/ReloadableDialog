@@ -1,5 +1,5 @@
 plugins {
-	id 'com.diffplug.spotless' version '8.6.0'
+	id 'com.diffplug.spotless' version '8.7.0'
 	id 'com.gladed.androidgitversion' version '0.4.14'
 	id 'com.vanniktech.maven.publish' version '0.36.0' apply false
 	id 'net.raphimc.class-token-replacer' version '1.1.7' apply false
@@ -113,29 +113,29 @@ subprojects {
 			'META-INF/neoforge.mods.toml',
 		]) {
 			expand(
-				central: "https://central.sonatype.com/artifact/${GROUP}/${MOD_LOWERCASE}",
-				fabric_minecraft: FABRIC,
-				forge_minecraft: FORGE,
-				description: DESCRIPTION,
-				developer: DEVELOPER_NAME,
-				file_icon: "icon.png",
-				file_mixin: "mixins.json",
-				id: MOD_LOWERCASE,
-				license: LICENSE,
-				name: MOD_NAME,
-				publish_curseforge: "1560532",
-				publish_modrinth: "zI606Zwl",
-				schema: '''schemaVersion": 1,
+			central: "https://central.sonatype.com/artifact/${GROUP}/${MOD_LOWERCASE}",
+			fabric_minecraft: FABRIC,
+			forge_minecraft: FORGE,
+			description: DESCRIPTION,
+			developer: DEVELOPER_NAME,
+			file_icon: "icon.png",
+			file_mixin: "mixins.json",
+			id: MOD_LOWERCASE,
+			license: LICENSE,
+			name: MOD_NAME,
+			publish_curseforge: "1560532",
+			publish_modrinth: "zI606Zwl",
+			schema: '''schemaVersion": 1,
 	"$schema''',
-				url_curseforge: CURSEFORGE,
-				url_github: DEVELOPER_GITHUB,
-				url_homepage: HOMEPAGE,
-				url_issue: ISSUE,
-				url_kofi: KO_FI,
-				url_modrinth: MODRINTH,
-				url_scm: MOD_GITHUB,
-				version: VERSION,
-				)
+			url_curseforge: CURSEFORGE,
+			url_github: DEVELOPER_GITHUB,
+			url_homepage: HOMEPAGE,
+			url_issue: ISSUE,
+			url_kofi: KO_FI,
+			url_modrinth: MODRINTH,
+			url_scm: MOD_GITHUB,
+			version: VERSION,
+			)
 		}
 	}
 }

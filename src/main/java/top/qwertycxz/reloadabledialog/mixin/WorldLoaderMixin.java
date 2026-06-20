@@ -1,9 +1,10 @@
 package top.qwertycxz.reloadabledialog.mixin;
 
+import static top.qwertycxz.reloadabledialog.RegistryInfoLookupImpl.loadDialog;
+
 import net.minecraft.server.WorldLoader;
 import net.minecraft.server.WorldLoader.DataLoadOutput;
 import net.minecraft.server.WorldLoader.WorldDataSupplier;
-import static top.qwertycxz.reloadabledialog.RegistryInfoLookupImpl.loadDialog;
 import org.jspecify.annotations.NullMarked;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -10,6 +10,7 @@ import static net.minecraft.server.dialog.DialogAction.CLOSE;
 import static net.minecraft.server.dialog.NoticeDialog.DEFAULT_ACTION;
 import static net.minecraft.server.dialog.body.PlainMessage.DEFAULT_WIDTH;
 import static top.qwertycxz.reloadabledialog.RegistryInfoLookupImpl.STALE_PLAYERS;
+
 import net.minecraft.core.Holder;
 import net.minecraft.server.dialog.CommonDialogData;
 import net.minecraft.server.dialog.Dialog;
