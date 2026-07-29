@@ -9,9 +9,18 @@ jobs:
           cache: gradle
           distribution: graalvm
           java-version: 25
-      - run: gradle check
+      - run: gradle build
+      - uses: actions/upload-artifact@main
+        with:
+          compression-level: 9
+          if-no-files-found: error
+          path: |
+            obfuscated/build/libs/obfuscated.jar
+            unobfuscated/build/libs/unobfuscated.jar
 on:
-  - pull_request
-  - push
+  pull_request:
+  push:
+    branches:
+      - '*'
 permissions:
   contents: read
