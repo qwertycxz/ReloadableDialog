@@ -1,5 +1,5 @@
 plugins {
-	id 'com.diffplug.spotless' version '8.8.0'
+	id 'com.diffplug.spotless' version '8.9.0'
 	id 'com.gladed.androidgitversion' version '0.4.14'
 	id 'com.vanniktech.maven.publish' version '0.37.0' apply false
 	id 'net.raphimc.class-token-replacer' version '1.1.7' apply false
@@ -159,7 +159,7 @@ var ECLIPSE = '''
 	org.eclipse.jdt.core.formatter.comment.indent_parameter_description = true
 	org.eclipse.jdt.core.formatter.comment.indent_tag_description = true
 	org.eclipse.jdt.core.formatter.comment.insert_new_line_for_parameter = do not insert
-	org.eclipse.jdt.core.formatter.comment.line_length = 255
+	org.eclipse.jdt.core.formatter.comment.line_length = 256
 	org.eclipse.jdt.core.formatter.comment.new_lines_at_block_boundaries = false
 	org.eclipse.jdt.core.formatter.continuation_indentation = 1
 	org.eclipse.jdt.core.formatter.continuation_indentation_for_array_initializer = 1
@@ -189,7 +189,7 @@ var ECLIPSE = '''
 	org.eclipse.jdt.core.formatter.keep_switch_case_with_arrow_on_one_line = one_line_if_empty
 	org.eclipse.jdt.core.formatter.keep_then_statement_on_same_line = true
 	org.eclipse.jdt.core.formatter.keep_type_declaration_on_one_line = one_line_if_empty
-	org.eclipse.jdt.core.formatter.lineSplit = 255
+	org.eclipse.jdt.core.formatter.lineSplit = 256
 	org.eclipse.jdt.core.formatter.number_of_blank_lines_after_code_block = -1
 	org.eclipse.jdt.core.formatter.number_of_blank_lines_at_beginning_of_code_block = -1
 	org.eclipse.jdt.core.formatter.number_of_blank_lines_at_beginning_of_method_body = -1
