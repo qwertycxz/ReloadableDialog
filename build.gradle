@@ -98,15 +98,15 @@ subprojects {
 			}
 		}
 	}
-	var JAVA = project.properties['java'] as int
+	var JAVA = project.property('java') as int
 	tasks.withType JavaCompile configureEach {
 		options.deprecation = true
 		options.encoding = 'UTF-8'
 		options.listFiles = true
 		options.release = JAVA
 	}
-	var FABRIC = project.properties['fabric']
-	var FORGE = project.properties['forge']
+	var FABRIC = project.property 'fabric'
+	var FORGE = project.property 'forge'
 	processResources {
 		filesMatching([
 			'fabric.mod.json',
