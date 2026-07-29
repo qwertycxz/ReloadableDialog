@@ -24,7 +24,6 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import net.minecraft.core.HolderLookup.Provider;
-import net.minecraft.core.HolderLookup.RegistryLookup;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess.Frozen;
@@ -78,7 +77,7 @@ public record RegistryInfoLookupImpl(Map<? extends ResourceKey<? extends Registr
 	@SuppressWarnings("unchecked")
 	public static Frozen loadDialog(Frozen layer, Provider access, ResourceManager manager) {
 		ConcurrentMap<@NonNull ResourceKey<? extends Registry<?>>, @NonNull RegistryInfo<?>> info = concat(layer.listRegistries(), access.listRegistries())
-			.collect(toConcurrentMap(RegistryLookup::key, lookup -> fromRegistryLookup(requireNonNull(lookup))));
+			.collect(toConcurrentMap(lookup -> lookup.key(), lookup -> fromRegistryLookup(requireNonNull(lookup))));
 		var registry = new MappedRegistry<>(DIALOG, LIFECYCLE);
 		var getter = registry.createRegistrationLookup();
 		info.put(DIALOG, new RegistryInfo<>(registry, getter, LIFECYCLE));
