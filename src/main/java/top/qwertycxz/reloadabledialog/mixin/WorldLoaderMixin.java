@@ -1,6 +1,6 @@
 package top.qwertycxz.reloadabledialog.mixin;
 
-import static top.qwertycxz.reloadabledialog.RegistryInfoLookupImpl.loadDialog;
+import static top.qwertycxz.reloadabledialog.DialogRegistry.loadDialog;
 
 import net.minecraft.server.WorldLoader;
 import net.minecraft.server.WorldLoader.DataLoadOutput;
@@ -9,6 +9,7 @@ import org.jspecify.annotations.NullMarked;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import top.qwertycxz.reloadabledialog.ProviderAccessor;
 
 /// We removed the dialog loading code from the main world loading code and put it in a separate supplier, so we need to modify the world loading code to use our supplier instead of the original one.
 @Mixin(WorldLoader.class)
@@ -22,7 +23,7 @@ public abstract class WorldLoaderMixin {
 	private static <T> WorldDataSupplier<T> initialDialog(WorldDataSupplier<T> supplier) {
 		return context -> {
 			var output = supplier.get(context);
-			return new DataLoadOutput<>(output.cookie(), loadDialog(output.finalDimensions(), context.datapackWorldgen(), context.resources()));
+			return new DataLoadOutput<>(output.cookie(), loadDialog(output.finalDimensions(), ((ProviderAccessor)(Object)context).getProvider(), context.resources()));
 		};
 	}
 }
