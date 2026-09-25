@@ -3,8 +3,8 @@ package top.qwertycxz.reloadabledialog.mixin;
 import static java.util.concurrent.CompletableFuture.failedFuture;
 import static net.minecraft.server.RegistryLayer.DIMENSIONS;
 import static net.minecraft.server.packs.PackType.SERVER_DATA;
-import static top.qwertycxz.reloadabledialog.RegistryInfoLookupImpl.STALE_PLAYERS;
-import static top.qwertycxz.reloadabledialog.RegistryInfoLookupImpl.loadDialog;
+import static top.qwertycxz.reloadabledialog.DialogRegistry.STALE_PLAYERS;
+import static top.qwertycxz.reloadabledialog.DialogRegistry.loadDialog;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

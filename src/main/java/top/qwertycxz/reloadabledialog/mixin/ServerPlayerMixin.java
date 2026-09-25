@@ -9,7 +9,7 @@ import static net.minecraft.network.chat.Component.literal;
 import static net.minecraft.server.dialog.DialogAction.CLOSE;
 import static net.minecraft.server.dialog.NoticeDialog.DEFAULT_ACTION;
 import static net.minecraft.server.dialog.body.PlainMessage.DEFAULT_WIDTH;
-import static top.qwertycxz.reloadabledialog.RegistryInfoLookupImpl.STALE_PLAYERS;
+import static top.qwertycxz.reloadabledialog.DialogRegistry.STALE_PLAYERS;
 
 import net.minecraft.core.Holder;
 import net.minecraft.server.dialog.CommonDialogData;
@@ -44,7 +44,7 @@ public abstract class ServerPlayerMixin {
 	///
 	/// @param dialog the original dialog to be sent to the player
 	/// @return the dialog to be sent to the player, which is the original dialog if the player is up-to-date, or a notice dialog if the player is not up-to-date
-	@ModifyArg(method = "openDialog", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/common/ClientboundShowDialogPacket;<init>"))
+	@ModifyArg(at = @At(target = "Lnet/minecraft/network/protocol/common/ClientboundShowDialogPacket;<init>", value = "INVOKE"), method = "openDialog")
 	private Holder<@NonNull Dialog> staleDialog(Holder<@NonNull Dialog> dialog) {
 		if (dialog.kind() == REFERENCE && STALE_PLAYERS.contains((Object)this)) return STALE_DIALOG;
 		return dialog;
