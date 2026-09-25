@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-	minecraft 'com.mojang:minecraft:26.2'
+	minecraft 'com.mojang:minecraft:26.3'
 	implementation 'net.fabricmc:fabric-loader:0.19.5'
 }
 
