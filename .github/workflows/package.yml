@@ -34,7 +34,7 @@ jobs:
       - uses: Kir-Antipov/mc-publish@52307b03863581dec6b652b83e597aec02ebb075
         with:
           curseforge-files: |
-            obfuscated/build/libs/!(*-@(dev|sources|javadoc)).jar
+            unobfuscated/build/libs/!(*-@(dev|sources|javadoc)).jar
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           files: |
             unobfuscated/build/libs/!(*-@(dev|sources|javadoc)).jar
